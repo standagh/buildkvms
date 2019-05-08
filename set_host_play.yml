@@ -1,0 +1,12 @@
+---
+# requires insetalled module: libvirt-python
+
+- hosts: all
+  gather_facts: False
+  serial: 1
+  tasks:
+
+  - name: prepare vms
+    include_role:
+      name: clonevm
+

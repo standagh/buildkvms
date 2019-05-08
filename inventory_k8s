@@ -1,0 +1,54 @@
+
+
+
+vmclones:
+  hosts:
+    host1:
+      ansible_host: 192.168.123.254
+      vmname: "m1-k8s.hatua.cz"
+      qcowsrc: "ubuntu-server18.04.qcow2"
+      vmmemory: 2048
+      vmvcpu: 1
+      vmip: "192.168.123.10"
+      vmmac: "52:54:00:35:01:10"
+      lvsize: 13G
+
+    host2:
+      ansible_host: 192.168.123.254
+      vmname: "m2-k8s.hatua.cz"
+      qcowsrc: "ubuntu-server18.04.qcow2"
+      vmmemory: 2048
+      vmvcpu: 1
+      vmip: "192.168.123.11"
+      vmmac: "52:54:00:35:01:11"
+      lvsize: 13G
+
+    host3:
+      ansible_host: 192.168.123.254
+      vmname: "m3-k8s.hatua.cz"
+      qcowsrc: "ubuntu-server18.04.qcow2"
+      vmmemory: 2048
+      vmvcpu: 1
+      vmip: "192.168.123.12"
+      vmmac: "52:54:00:35:01:12"
+      lvsize: 13G
+
+    host4:
+      ansible_host: 192.168.123.254
+      vmname: "c1-k8s.hatua.cz"
+      qcowsrc: "ubuntu-server18.04.qcow2"
+      vmmemory: 1024
+      vmvcpu: 1
+      vmip: "192.168.123.13"
+      vmmac: "52:54:00:35:01:13"
+      lvsize: 13G
+
+    host5:
+      ansible_host: 192.168.123.254
+      vmname: "c2-k8s.hatua.cz"
+      qcowsrc: "ubuntu-server18.04.qcow2"
+      vmmemory: 1024
+      vmvcpu: 1
+      vmip: "192.168.123.14"
+      vmmac: "52:54:00:35:01:14"
+      lvsize: 13G

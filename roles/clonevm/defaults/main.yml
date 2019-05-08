@@ -1,0 +1,19 @@
+
+
+
+
+
+vmname: "dummyhost"
+#NEWQEMUXML: "ubuntu_2.xml"
+#NEWQCOWFILE: "ubuntu_2.qcow2"
+vmmemory: 2048
+vmvcpu: 1
+vmmac: "52:54:00:35:01:ff"
+vmip: "192.168.123.2"
+vmhostname: "dummyhost.domain.cz"
+lvsize: 5G
+
+
+qemuhome: "/etc/libvirt/qemu"
+qcowhome: "/home/VMKVM/disks"
+qcowsrc: "ubuntu-server18.04"  # + .qcow2

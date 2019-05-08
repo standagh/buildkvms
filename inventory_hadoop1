@@ -1,0 +1,34 @@
+
+
+
+vmclones:
+  hosts:
+    host1:
+      ansible_host: 192.168.123.254
+      vmname: "m1-hadoop1.hatua.cz"
+      qcowsrc: "ubuntu-server18.04.qcow2"
+      vmmemory: 2048
+      vmvcpu: 1
+      vmip: "192.168.123.20"
+      vmmac: "52:54:00:35:01:20"
+      lvsize: 13G
+
+    host2:
+      ansible_host: 192.168.123.254
+      vmname: "m2-hadoop1.hatua.cz"
+      qcowsrc: "ubuntu-server18.04.qcow2"
+      vmmemory: 2048
+      vmvcpu: 1
+      vmip: "192.168.123.21"
+      vmmac: "52:54:00:35:01:21"
+      lvsize: 13G
+
+    host3:
+      ansible_host: 192.168.123.254
+      vmname: "m3-hadoop1.hatua.cz"
+      qcowsrc: "ubuntu-server18.04.qcow2"
+      vmmemory: 2048
+      vmvcpu: 1
+      vmip: "192.168.123.22"
+      vmmac: "52:54:00:35:01:22"
+      lvsize: 13G
