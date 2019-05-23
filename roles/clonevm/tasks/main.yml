@@ -21,6 +21,7 @@
 - name: define virt
   delegate_to: localhost
   shell: "virsh define {{ qemuhome }}/{{ vmname }}.xml"
+  when: True
 
 - name: start virt
   delegate_to: localhost
@@ -48,11 +49,6 @@
     lv: "ubuntu-lv"
     vg: "ubuntu-vg"
 
-- name: reboot
-  ignore_errors: yes
-  reboot:
-    reboot_timeout: 10
-
 - name: update hosts
   delegate_to: localhost
   become: yes
@@ -60,3 +56,8 @@
   lineinfile:
     path: /etc/hosts
     line: "{{ vmip }} {{ vmname }}"
+
+- name: reboot
+  ignore_errors: yes
+  reboot:
+    reboot_timeout: 10
