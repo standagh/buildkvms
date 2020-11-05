@@ -1,0 +1,15 @@
+
+
+
+vmclones:
+  hosts:
+    host1:
+      ansible_host: 192.168.123.2
+      vmname: "dev1.hatua.cz"
+      vmtemplate: "ubuntu20.04.xml.j2"
+      qcowsrc: "ubuntu_server_20.04_1.qcow2"
+      vmmemory: 2048
+      vmvcpu: 1
+      vmip: "192.168.123.5"
+      vmmac: "10:10:00:10:10:05"
+      lvsize: 6G

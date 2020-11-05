@@ -9,11 +9,13 @@ vmname: "dummyhost"
 vmmemory: 2048
 vmvcpu: 1
 vmmac: "52:54:00:35:01:ff"
-vmip: "192.168.123.2"
-vmhostname: "dummyhost.domain.cz"
+vmip: "192.168.123.3"
+vmhostname: "dummyhost.hatua.cz"
 lvsize: 5G
 
 
 qemuhome: "/etc/libvirt/qemu"
 qcowhome: "/home/VMKVM/disks"
-qcowsrc: "ubuntu-server18.04"  # + .qcow2
+qcowsrc: "ubuntu_server_20.04_1"  # + .qcow2
+
+netplanetemplate: "netplan_ubuntu2004.yml.j2"

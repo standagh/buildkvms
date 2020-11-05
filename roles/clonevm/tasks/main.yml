@@ -1,9 +1,16 @@
 
+- name: generate uuid
+  delegate_to: localhost
+  shell: uuid
+  register: vmuuid
+
 - name: prepare qemu config
   delegate_to: localhost
+  become: yes
+  become_method: sudo
   template:
     dest: "{{ qemuhome }}/{{ vmname }}.xml"
-    src: ubuntu18.04.xml.j2
+    src: "{{ vmtemplate }}"
 
 - name: prepare qcow2 image
   delegate_to: localhost
@@ -11,23 +18,15 @@
   become_method: sudo
   shell: "[ -r \"{{ qcowhome }}/{{ vmname }}.qcow2\" ] || cp \"{{ qcowhome }}/{{ qcowsrc }}\" \"{{ qcowhome }}/{{ vmname }}.qcow2\""
 
-#- name: define virt
-#  delegate_to: localhost
-#  virt:
-#    name: "{{ vmname }}"
-#    command: define
-#    xml: "{{ qemuhome }}/{{ vmname }}.xml"
-
-- name: define virt
+- name: define vm
   delegate_to: localhost
   shell: "virsh define {{ qemuhome }}/{{ vmname }}.xml"
   when: True
 
-- name: start virt
+- name: start vm
   delegate_to: localhost
-  virt:
-    name: "{{ vmname }}"
-    state: running
+  shell: "virsh start {{ vmname }}"
+  when: True
 
 - name: wait for ssh
   wait_for_connection:
@@ -35,16 +34,20 @@
 - name: set hostname
   shell: "hostnamectl set-hostname {{ vmname }}"
 
+- name: remove netplans
+  shell: rm -f /etc/netplan/*
+
 - name: setup netplan defaul
   template:
     dest: /etc/netplan/10-default.yaml
-    src: netplan.yml.j2
+    src: "{{ netplanetemplate }}"
   vars:
     newip: "{{ vmip }}"
 
 - name: change disk size
   lvol:
     size: "{{ lvsize }}"
+    shrink: no
     resizefs: yes
     lv: "ubuntu-lv"
     vg: "ubuntu-vg"
@@ -60,4 +63,5 @@
 - name: reboot
   ignore_errors: yes
   reboot:
-    reboot_timeout: 10
+    connect_timeout: 1
+    reboot_timeout: 1

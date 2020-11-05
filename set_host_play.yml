@@ -1,5 +1,5 @@
 ---
-# requires insetalled module: libvirt-python
+# requires installed module: libvirt-python
 
 - hosts: all
   gather_facts: False
@@ -10,3 +10,9 @@
     include_role:
       name: clonevm
 
+  # test reboot
+  # - name: test reboot
+  #   ignore_errors: yes
+  #   reboot:
+  #     connect_timeout: 1
+  #     reboot_timeout: 1
