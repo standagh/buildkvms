@@ -31,26 +31,55 @@
 - name: wait for ssh
   wait_for_connection:
 
+- name: get new vm facts
+  setup:
+
 - name: set hostname
   shell: "hostnamectl set-hostname {{ vmname }}"
 
-- name: remove netplans
-  shell: rm -f /etc/netplan/*
+- name: setup ubuntu
+  block:
 
-- name: setup netplan defaul
-  template:
-    dest: /etc/netplan/10-default.yaml
-    src: "{{ netplanetemplate }}"
-  vars:
-    newip: "{{ vmip }}"
+  - name: remove netplans
+    shell: rm -f /etc/netplan/*
 
-- name: change disk size
-  lvol:
-    size: "{{ lvsize }}"
-    shrink: no
-    resizefs: yes
-    lv: "ubuntu-lv"
-    vg: "ubuntu-vg"
+  - name: setup netplan defaul
+    template:
+      dest: /etc/netplan/10-default.yaml
+      src: "{{ netplanetemplate }}"
+    vars:
+      newip: "{{ vmip }}"
+
+  - name: change disk size ubuntu
+    lvol:
+      size: "{{ lvsize }}"
+      shrink: no
+      resizefs: yes
+      lv: "ubuntu-lv"
+      vg: "ubuntu-vg"
+
+  when: ansible_distribution == "Ubuntu"
+
+- name: setup centos
+  block:
+
+  - name: setup centos ifcfg
+    template:
+      dest: /etc/sysconfig/network-scripts/ifcfg-eth0
+      src: centos_ifcfg.j2
+    vars:
+      newip: "{{ vmip }}"
+
+  - name: change disk size centos
+    lvol:
+      size: "{{ lvsize }}"
+      shrink: no
+      resizefs: yes
+      lv: "root"
+      vg: "centos"
+
+  when: ansible_distribution == "CentOS"
+
 
 - name: update hosts
   delegate_to: localhost
